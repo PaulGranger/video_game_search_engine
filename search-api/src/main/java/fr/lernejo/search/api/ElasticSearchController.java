@@ -18,14 +18,14 @@ public class ElasticSearchController {
 
     @Bean
     RestHighLevelClient getRestHighLevelClient(@Value("${elasticsearch.host:localhost}") String localhost,
-                                               @Value("${elasticsearch.port:9200}") Integer port,
+                                               @Value("${elasticsearch.port:9200}") int port,
                                                @Value("${elasticsearch.username:elastic}") String username,
                                                @Value("${elasticsearch.password:admin}") String pwd) {
 
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("user", "password"));
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, pwd));
 
-        RestClientBuilder builder = RestClient.builder(new HttpHost("localhost", 9200))
+        RestClientBuilder builder = RestClient.builder(new HttpHost(localhost, port))
             .setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
 
         return new RestHighLevelClient(builder);
