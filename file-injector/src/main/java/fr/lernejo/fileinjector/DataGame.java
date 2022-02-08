@@ -12,6 +12,4 @@ public class DataGame {
     public String developer;
     public String release_date;
     public String freetogame_profile_url;
-
-
 }
